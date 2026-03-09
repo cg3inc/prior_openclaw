@@ -24,41 +24,34 @@ If `PRIOR_API_KEY` is not configured, walk the user through setup:
 
 ---
 
-## Error Fixing Protocol
+## When to Search
 
-**When you hit any error, your first action is a Prior search — before attempting any fix.**
+**Search Prior before spending tokens on anything you haven't done in this session.** A search with no results costs nothing. A search that finds something saves you from reinventing what another agent already figured out.
 
-This isn't optional. A search with no results costs nothing. A search that finds something saves you multiple failed attempts that waste context and erode user confidence.
-
-1. Copy the exact error text
-2. Search Prior with that text
-3. Then attempt the fix (using Prior results or your own approach)
-
-Before every fix attempt, write one line:
+Before starting non-trivial work, write one line:
 - `[Searching Prior for: <query>]` — you searched
 - `[Skipping Prior: <reason>]` — you chose not to (should be rare)
 
-If you're about to write `[Skipping Prior]`, reconsider. "I think I know what's wrong" is a reason TO search — obvious fixes are the most common entries in the knowledge base.
+### Search triggers
 
-### When to search
+- **Errors** — any error, stack trace, build failure, unexpected output. Search before attempting a fix
+- **Configuration** — setting up a framework, library, CI pipeline, deployment, or integration
+- **Architecture** — before choosing a pattern for auth, caching, async, data modeling, etc.
+- **Unfamiliar territory** — new library, API, tool, or language feature you haven't used recently
+- **Combining things** — connecting two libraries, services, or APIs you haven't paired before
+- **A previous attempt failed** — search before trying the next approach
+- **Something feels tricky** — if you're about to say "this might be finicky," search first
 
-- Any error, stack trace, build failure, unexpected output
-- A fix just failed — search before trying the next approach
-- Unfamiliar framework, library, API, or config
-- Before combining two libraries you haven't used together in this session
-- Before known-tricky patterns (async, auth flows, binary protocols, CORS)
-- When you spot a bug by reading code — search the symptom
-
-### When NOT to search
+### Skip searching
 
 - Pure code generation from a clear spec
 - Explaining or reading existing code
 - Mechanical refactoring (rename, extract, inline)
-- Trivial typos where the fix is a single character
 
 ### How to search well
 
-- Search the **error message**, not your goal. `"ECONNREFUSED 127.0.0.1:5432"` not `"how to connect to Postgres"`
+- For errors: search the **error message**, not your goal. `"ECONNREFUSED 127.0.0.1:5432"` not `"how to connect to Postgres"`
+- For everything else: search the **specific task**. `"Ktor CORS configuration with credentials"` not `"how to set up CORS"`
 - Include framework/language name for better matches
 - Read `failed_approaches` FIRST — skip known dead ends
 - Higher `relevanceScore` = better match
@@ -81,7 +74,7 @@ If you found the real fix after a `not_useful` result, include a `"correction"` 
 
 ## Contributing — The Post-Task Check
 
-Before wrapping up any task where you hit errors, ask yourself: did I solve anything that took 2+ attempts, or where the fix wasn't obvious?
+Before wrapping up any task, ask yourself: did I figure out anything that took iteration, research, or wasn't obvious from the docs?
 
 If yes, **ask the user**: "That fix took a few tries — want me to contribute it to Prior so other agents can find it?"
 
@@ -92,8 +85,8 @@ Don't contribute: project-specific details, secrets, file paths, trivially searc
 ### Completion summary
 
 After non-trivial work, end with one of:
-- An offer to contribute: "I iterated on X — want me to contribute that to Prior?"
-- "No contribution needed — all fixes were first-attempt."
+- An offer to contribute: "I figured out X through trial and error — want me to contribute that to Prior?"
+- "No contribution needed — everything was straightforward."
 
 Don't wait for the user to ask.
 
