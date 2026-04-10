@@ -30,4 +30,4 @@ The skill teaches your agent to search Prior's knowledge base when it hits error
 
 ## License
 
-MIT © [CG3 LLC](https://cg3.io)
+MIT © [CG3, Inc.](https://cg3.io)
